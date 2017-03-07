@@ -1,5 +1,5 @@
 ---
-postfix_relay_confs_template:
+postfix_relay_configs_template:
   sender_dependent_relayhost_maps: hash:/etc/postfix/sender_dependent_relayhost_maps
   smtp_sasl_auth_enable: 'yes'
   smtp_sasl_password_maps: hash:/etc/postfix/smtp_sasl_password_maps

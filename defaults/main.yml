@@ -1,6 +1,6 @@
 ---
-# Extra confs of main.cf
-postfix_relay_confs: {}
+# Extra configs of main.cf
+postfix_relay_configs: {}
 
 # Apply priority
 # 1. localpart@domain matched

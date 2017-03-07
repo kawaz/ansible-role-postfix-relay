@@ -5,27 +5,27 @@ Role Name
 
 Ansible role for postfix with sender depended relay and sasl authentication
 
-Requirements
-------------
+# Requirements
 
 None
 
-Role Variables
---------------
+# Role Variables
+
+- `postfix_relay_configs_template`: List of configuration template.
+
+# Role Variables
 
 |Variable|Description|Default|
 |---|---|---|
-|`postfix_relay_confs`|Extra configs of main.cf|`{}`|
+|`postfix_relay_configs`|Extra configs of main.cf|`{}`|
 |`postfix_relay_sender_dependent_relayhost_maps`|Maps of relayhost for each sender|`{}`|
 |`postfix_relay_smtp_sasl_password_maps`|Maps of `USERNAME:PASSWORD` for each relayhost or sender|`{}`|
 
-Dependencies
-------------
+# Dependencies
 
 Postfix
 
-Example Playbook
-----------------
+# Example Playbook
 
 This is example for combined multiple domains of AmazonSES and gmail account.
 
@@ -44,12 +44,10 @@ This is example for combined multiple domains of AmazonSES and gmail account.
         '[extra-relay.example.com]:587': 'USERNAME:PASSWORD'
 ```
 
-License
--------
+# License
 
 MIT
 
-Author Information
-------------------
+# Author Information
 
 Yoshiaki Kawazu
