@@ -1,5 +1,4 @@
-Role Name
-=========
+# Ansible postfix-relay role
 
 [![Build Status](https://travis-ci.org/kawaz/ansible-role-postfix-relay.svg?branch=master)](https://travis-ci.org/kawaz/ansible-role-postfix-relay)
 
