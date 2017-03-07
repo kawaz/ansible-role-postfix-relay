@@ -1,2 +1,11 @@
 ---
-# vars file for kawaz.postfix-relay
+postfix_relay_confs_template:
+  sender_dependent_relayhost_maps: hash:/etc/postfix/sender_dependent_relayhost_maps
+  smtp_sasl_auth_enable: 'yes'
+  smtp_sasl_password_maps: hash:/etc/postfix/smtp_sasl_password_maps
+  smtp_sasl_security_options: noanonymous
+  smtp_sender_dependent_authentication: 'yes'
+  # if ansible_distribution is Debian or Ubuntu then /etc/ssl/certs/ca-certificates.crt
+  smtp_tls_CAfile: /etc/ssl/certs/ca-bundle.crt
+  smtp_tls_note_starttls_offer: 'yes'
+  smtp_tls_security_level: may

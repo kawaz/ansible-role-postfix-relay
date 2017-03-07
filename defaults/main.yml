@@ -1,2 +1,23 @@
 ---
-# defaults file for kawaz.postfix-relay
+# Extra confs of main.cf
+postfix_relay_confs: {}
+
+# Apply priority
+# 1. localpart@domain matched
+# 2. @domain matched
+postfix_relay_sender_dependent_relayhost_maps: {}
+
+# Apply priority
+# 1. localpart@domain matched
+# 2. @domain matched
+# 3. [host] matched
+postfix_relay_smtp_sasl_password_maps_examples: {}
+
+# # Examples
+# postfix_relay_sender_dependent_relayhost_maps:
+#   '@example.jp': '[relay.example.jp]:587'
+#   'foo@example.com': '[relay.example.jp]:587'
+# postfix_relay_smtp_sasl_password_maps:
+#   '[relay.example.jp]:587': 'USERNAME:PASSWORD'
+#   'foo@example.jp': 'USERNAME:PASSWORD'
+#   '@example.jp': 'USERNAME:PASSWORD'

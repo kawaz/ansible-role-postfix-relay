@@ -1,2 +1,9 @@
 ---
-# handlers file for kawaz.postfix-relay
+- name: postfix reloaded
+  service: name=postfix state=reloaded
+
+- name: postfix started
+  service: name=postfix state=started
+
+- name: postfix stoped
+  service: name=postfix state=stopd
