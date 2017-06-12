@@ -11,7 +11,7 @@ postfix_relay_sender_dependent_relayhost_maps: {}
 # 1. localpart@domain matched
 # 2. @domain matched
 # 3. [host] matched
-postfix_relay_smtp_sasl_password_maps_examples: {}
+postfix_relay_smtp_sasl_password_maps: {}
 
 # # Examples
 # postfix_relay_sender_dependent_relayhost_maps:

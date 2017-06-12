@@ -1,6 +1,6 @@
 ---
 - set_fact:
-    postfix_relay_configs_merged: "{{postfix_relay_configs_template|combine(postfix_smtprelay_configs)}}"
+    postfix_relay_configs_merged: "{{postfix_relay_configs_template|combine(postfix_relay_configs)}}"
 
 - name: update /etc/postfix/main.cf
   lineinfile: >
