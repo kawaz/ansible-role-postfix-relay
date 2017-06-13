@@ -21,3 +21,12 @@ postfix_relay_smtp_sasl_password_maps: {}
 #   '[relay.example.jp]:587': 'USERNAME:PASSWORD'
 #   'foo@example.jp': 'USERNAME:PASSWORD'
 #   '@example.jp': 'USERNAME:PASSWORD'
+
+
+# Combined maps of sender_dependent_relayhost and smtp_sasl_password
+# Examples
+# postfix_relay_maps:
+#   - sender: '@example.jp'
+#   - relayhost: '[relay.example.jp]:587'
+#   - password: 'USERNAME:PASSWORD'
+postfix_relay_maps: {}

@@ -19,6 +19,7 @@ None
 |`postfix_relay_configs`|Extra configs of main.cf|`{}`|
 |`postfix_relay_sender_dependent_relayhost_maps`|Maps of relayhost for each sender|`{}`|
 |`postfix_relay_smtp_sasl_password_maps`|Maps of `USERNAME:PASSWORD` for each relayhost or sender|`{}`|
+|`postfix_relay_maps`|Maps of `{sender, relayhost, password}` for each relayhost or sender|`{}`|
 
 # Dependencies
 
@@ -41,6 +42,18 @@ This is example for combined multiple domains of AmazonSES and gmail account.
         '@example.org': 'AWS_ACCESS_KEY2:AWS_ACCESS_SECRET2'
         'user@google.com': 'user@google.com:PASSWORD'
         '[extra-relay.example.com]:587': 'USERNAME:PASSWORD'
+```
+
+This is simple playbook for AmazonSES.
+
+```yaml
+- hosts: servers
+  roles:
+    - role: kawaz.postfix-relay
+      postfix_relay_maps:
+        sender: '@example.com'
+        relayhost: '[email-smtp.us-east-1.amazonaws.com]:587'
+        password: 'AWS_ACCESS_KEY:AWS_ACCESS_SECRET'
 ```
 
 # License

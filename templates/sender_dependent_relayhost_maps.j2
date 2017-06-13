@@ -1,3 +1,14 @@
+{% if postfix_relay_sender_dependent_relayhost_maps|length %}
+# from postfix_relay_sender_dependent_relayhost_maps by {{role_path|basename}}
 {% for k, v in postfix_relay_sender_dependent_relayhost_maps.iteritems() %}
 {{k}} {{v}}
 {% endfor %}
+{% endif %}
+{% if postfix_relay_maps|length %}
+# from postfix_relay_maps by {{role_path|basename}}
+{% for item in postfix_relay_maps %}
+{% if item.sender and item.relayhost %}
+{{item.sender}} {{item.relayhost}}
+{% endif %}
+{% endfor %}
+{% endif %}
