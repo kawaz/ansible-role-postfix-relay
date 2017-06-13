@@ -18,9 +18,14 @@ None
 |Variable|Description|Default|
 |---|---|---|
 |`postfix_relay_configs`|Extra configs of main.cf|`{}`|
+|`postfix_relay_maps`|Maps of `{sender, relayhost, username, password, enable_password_conversion_for_ses}`|`[]`|
+|`postfix_relay_maps[].sender`|sender||
+|`postfix_relay_maps[].relayhost`|relayhost||
+|`postfix_relay_maps[].username`|sasl username||
+|`postfix_relay_maps[].password`|sasl password||
+|`postfix_relay_maps[].enable_password_conversion_for_ses`|If this is `yes`, then your normal aws credentials will be converted to ses smtp credentioals. For details, see [here](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html#smtp-credentials-convert)|`no`|
 |`postfix_relay_sender_dependent_relayhost_maps`|Maps of relayhost for each sender|`{}`|
 |`postfix_relay_smtp_sasl_password_maps`|Maps of `USERNAME:PASSWORD` for each relayhost or sender|`{}`|
-|`postfix_relay_maps`|Maps of `{sender, relayhost, password, enable_password_conversion_for_ses}`|`{}`|
 
 # Dependencies
 
