@@ -1,6 +1,7 @@
-# Ansible [kawaz.postfix-relay](https://galaxy.ansible.com/kawaz/postfix-relay/) role
+# Ansible role: kawaz.postfix-relay
 
 [![Build Status](https://travis-ci.org/kawaz/ansible-role-postfix-relay.svg?branch=master)](https://travis-ci.org/kawaz/ansible-role-postfix-relay)
+[![Ansible galaxy](https://img.shields.io/badge/ansible--galaxy-kawaz.postfix--relay-blue.svg)](https://galaxy.ansible.com/kawaz/postfix-relay/)
 
 Ansible role for postfix with sender depended relay and sasl authentication
 
