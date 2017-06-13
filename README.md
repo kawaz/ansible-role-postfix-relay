@@ -19,7 +19,7 @@ None
 |`postfix_relay_configs`|Extra configs of main.cf|`{}`|
 |`postfix_relay_sender_dependent_relayhost_maps`|Maps of relayhost for each sender|`{}`|
 |`postfix_relay_smtp_sasl_password_maps`|Maps of `USERNAME:PASSWORD` for each relayhost or sender|`{}`|
-|`postfix_relay_maps`|Maps of `{sender, relayhost, password}`|`{}`|
+|`postfix_relay_maps`|Maps of `{sender, relayhost, password, enable_password_conversion_for_ses}`|`{}`|
 
 # Dependencies
 
@@ -27,6 +27,7 @@ Postfix
 
 # Example Playbook
 
+## AmazonSES (credentials is normal aws credentials, not smtp credentials)
 This is simple playbook for AmazonSES.
 
 ```yaml
@@ -36,10 +37,15 @@ This is simple playbook for AmazonSES.
       postfix_relay_maps:
         sender: '@example.com'
         relayhost: '[email-smtp.us-east-1.amazonaws.com]:587'
-        password: 'AWS_ACCESS_KEY:AWS_ACCESS_SECRET'
+        username: 'AKIAIOSFODNN7EXAMPLE'
+        password: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+        enable_password_conversion_for_ses: yes
 ```
 
-This is example for combined multiple domains of AmazonSES and gmail account.
+If your credentials is created by management console, you don't need `enable_password_conversion_for_ses: yes`.
+
+## Multiple identities
+This is example for combined multiple identities of AmazonSES and gmail account.
 
 ```yaml
 - hosts: servers
@@ -50,8 +56,8 @@ This is example for combined multiple domains of AmazonSES and gmail account.
         '@example.org': '[email-smtp.us-east-1.amazonaws.com]:587'
         'user@google.com': '[smtp-relay.gmail.com]:587'
       postfix_relay_smtp_sasl_password_maps:
-        '@example.com': 'AWS_ACCESS_KEY1:AWS_ACCESS_SECRET1'
-        '@example.org': 'AWS_ACCESS_KEY2:AWS_ACCESS_SECRET2'
+        '@example.com': 'AWS_ACCESS_KEY1:AWS_ACCESS_KEY1'
+        '@example.org': 'AWS_ACCESS_KEY2:AWS_ACCESS_KEY2'
         'user@google.com': 'user@google.com:PASSWORD'
         '[extra-relay.example.com]:587': 'USERNAME:PASSWORD'
 ```
