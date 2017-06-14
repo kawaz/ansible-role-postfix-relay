@@ -1,9 +1,8 @@
-# Ansible role: kawaz.postfix-relay
+Ansible role for postfix with sender depended relay and sasl authentication
+--
 
 [![Build Status](https://travis-ci.org/kawaz/ansible-role-postfix-relay.svg?branch=master)](https://travis-ci.org/kawaz/ansible-role-postfix-relay)
 [![Ansible galaxy](https://img.shields.io/badge/ansible--galaxy-kawaz.postfix--relay-blue.svg)](https://galaxy.ansible.com/kawaz/postfix-relay/)
-
-Ansible role for postfix with sender depended relay and sasl authentication
 
 # Requirements
 
@@ -41,11 +40,11 @@ This is simple playbook for AmazonSES.
   roles:
     - role: kawaz.postfix-relay
       postfix_relay_maps:
-        sender: '@example.com'
-        relayhost: '[email-smtp.us-east-1.amazonaws.com]:587'
-        username: 'AKIAIOSFODNN7EXAMPLE'
-        password: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
-        enable_password_conversion_for_ses: yes
+        - sender: '@example.com'
+          relayhost: '[email-smtp.us-east-1.amazonaws.com]:587'
+          username: 'AKIAIOSFODNN7EXAMPLE'
+          password: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+          enable_password_conversion_for_ses: yes
 ```
 
 If your credentials is created by management console, you don't need `enable_password_conversion_for_ses: yes`.
@@ -60,12 +59,24 @@ This is example for combined multiple identities of AmazonSES and gmail account.
       postfix_relay_sender_dependent_relayhost_maps:
         '@example.com': '[email-smtp.us-east-1.amazonaws.com]:587'
         '@example.org': '[email-smtp.us-east-1.amazonaws.com]:587'
+        '@example.net': '[email-smtp.us-east-1.amazonaws.com]:587'
+        '@example.info': '[email-smtp.us-east-1.amazonaws.com]:587'
         'user@google.com': '[smtp-relay.gmail.com]:587'
+        '@intra.local': '[10.0.0.25]:25'
       postfix_relay_smtp_sasl_password_maps:
-        '@example.com': 'AWS_ACCESS_KEY1:AWS_ACCESS_KEY1'
-        '@example.org': 'AWS_ACCESS_KEY2:AWS_ACCESS_KEY2'
+        '@example.com': 'AWS_ACCESS_KEY1:AWS_ACCESS_SECRET1'
+        '@example.org': 'AWS_ACCESS_KEY2:AWS_ACCESS_SECRET2'
+        '[email-smtp.us-east-1.amazonaws.com]:587': 'AWS_ACCESS_KEY3:AWS_ACCESS_SECRET3'
         'user@google.com': 'user@google.com:PASSWORD'
-        '[extra-relay.example.com]:587': 'USERNAME:PASSWORD'
+      postfix_relay_maps:
+        - sender: '@example.jp'
+          relayhost: '[smtp-relay.gmail.com]:587'
+        - sender: 'foo@example.jp'
+          username: 'foo@example.jp'
+          password: 'FOOPASSWORD'
+        - sender: 'bar@example.jp'
+          username: 'bar@example.jp'
+          password: 'BARPASSWORD'
 ```
 
 # License
