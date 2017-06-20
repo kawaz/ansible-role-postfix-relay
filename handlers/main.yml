@@ -2,6 +2,9 @@
 - name: postfix reloaded
   service: name=postfix state=reloaded
 
+- name: postfix restarted
+  service: name=postfix state=restarted
+
 - name: postfix started
   service: name=postfix state=started
 

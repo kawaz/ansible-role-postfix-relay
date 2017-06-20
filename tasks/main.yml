@@ -8,7 +8,7 @@
     regexp='^\s*{{item.key}}\s*=.*'
     line="{{item.key}}={{item.value}}"
   with_dict: "{{postfix_relay_configs_merged}}"
-  notify: postfix reloaded
+  notify: postfix restarted
 
 - name: update db of maps
   template: >
