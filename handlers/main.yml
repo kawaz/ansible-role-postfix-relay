@@ -1,26 +1,18 @@
 ---
-- name: postfix reloaded
+- name: postfix reloaded (upstart)
   service: name=postfix state=reloaded
-  when: ansible_service_mgr == 'upstart'
-- name: postfix restarted
+- name: postfix restarted (upstart)
   service: name=postfix state=restarted
-  when: ansible_service_mgr == 'upstart'
-- name: postfix started
+- name: postfix started (upstart)
   service: name=postfix state=started
-  when: ansible_service_mgr == 'upstart'
-- name: postfix stoped
+- name: postfix stoped (upstart)
   service: name=postfix state=stopd
-  when: ansible_service_mgr == 'upstart'
 
-- name: postfix reloaded
+- name: postfix reloaded (systemd)
   systemd: name=postfix state=reloaded
-  when: ansible_service_mgr == 'systemd'
-- name: postfix restarted
+- name: postfix restarted (systemd)
   systemd: name=postfix state=restarted
-  when: ansible_service_mgr == 'systemd'
-- name: postfix started
+- name: postfix started (systemd)
   systemd: name=postfix state=started
-  when: ansible_service_mgr == 'systemd'
-- name: postfix stoped
+- name: postfix stoped (systemd)
   systemd: name=postfix state=stopd
-  when: ansible_service_mgr == 'systemd'

@@ -8,7 +8,7 @@
     regexp='^\s*{{item.key}}\s*=.*'
     line="{{item.key}}={{item.value}}"
   with_dict: "{{postfix_relay_configs_merged}}"
-  notify: postfix restarted
+  notify: "postfix restarted ({{ansible_service_mgr}})"
 
 - name: update db of maps
   template: >
@@ -27,4 +27,4 @@
     - sender_dependent_relayhost_maps
     - smtp_sasl_password_maps
   when: result_update_maps|changed
-  notify: postfix reloaded
+  notify: "postfix reloaded ({{ansible_service_mgr}})"
