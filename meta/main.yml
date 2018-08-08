@@ -17,7 +17,7 @@ galaxy_info:
     #     - 7
 
   galaxy_tags:
-    - MTA
+    - mta
     - postfix
     - mail
     - relay
