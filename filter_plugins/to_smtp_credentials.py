@@ -5,7 +5,7 @@ import hmac
 
 
 def to_smtp_credentials(aws_secret):
-    return base64.b64encode(chr(2) + hmac.new(str(aws_secret), "SendRawEmail", hashlib.sha256).digest())
+    return base64.b64encode(chr(2) + hmac.new(str(aws_secret).encode("utf-8"), b"SendRawEmail", hashlib.sha256).digest())
 
 
 class FilterModule(object):
