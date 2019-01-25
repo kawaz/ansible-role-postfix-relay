@@ -4,7 +4,7 @@
     postfix_relay_configs_merged: "{{ postfix_relay_configs_template|combine(postfix_relay_configs) }}"
 
 - name: update /etc/postfix/main.cf
-  lineinfile: >
+  lineinfile:
     dest: /etc/postfix/main.cf
     regexp: '^\s*{{ item.key }}\s*=.*'
     line: "{{ item.key }}={{ item.value }}"
@@ -12,7 +12,7 @@
   notify: "postfix restarted ({{ ansible_service_mgr }})"
 
 - name: update db of maps
-  template: >
+  template:
     dest: "{{ postfix_relay_configs_merged[item]|replace('hash:','') }}"
     src: "{{ item }}.j2"
     group: postfix
