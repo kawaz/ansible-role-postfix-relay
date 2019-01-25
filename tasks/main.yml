@@ -27,5 +27,5 @@
   with_items:
     - sender_dependent_relayhost_maps
     - smtp_sasl_password_maps
-  when: result_update_maps|changed
+  when: result_update_maps is changed
   notify: "postfix reloaded ({{ ansible_service_mgr }})"
