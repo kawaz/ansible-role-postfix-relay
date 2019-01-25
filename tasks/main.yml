@@ -1,30 +1,31 @@
 ---
-- set_fact:
-    postfix_relay_configs_merged: "{{postfix_relay_configs_template|combine(postfix_relay_configs)}}"
+- name: setup configs
+  set_fact:
+    postfix_relay_configs_merged: "{{ postfix_relay_configs_template|combine(postfix_relay_configs) }}"
 
 - name: update /etc/postfix/main.cf
   lineinfile: >
-    dest=/etc/postfix/main.cf
-    regexp='^\s*{{item.key}}\s*=.*'
-    line="{{item.key}}={{item.value}}"
-  with_dict: "{{postfix_relay_configs_merged}}"
-  notify: "postfix restarted ({{ansible_service_mgr}})"
+    dest: /etc/postfix/main.cf
+    regexp: '^\s*{{ item.key }}\s*=.*'
+    line: "{{ item.key }}={{ item.value }}"
+  with_dict: "{{ postfix_relay_configs_merged }}"
+  notify: "postfix restarted ({{ ansible_service_mgr }})"
 
 - name: update db of maps
   template: >
-    dest="{{postfix_relay_configs_merged[item]|replace('hash:','')}}"
-    src="{{item}}.j2"
-    group=postfix
-    mode=0640
+    dest: "{{ postfix_relay_configs_merged[item]|replace('hash:','') }}"
+    src: "{{ item }}.j2"
+    group: postfix
+    mode: '0640'
   with_items:
     - sender_dependent_relayhost_maps
     - smtp_sasl_password_maps
   register: result_update_maps
 
 - name: execute postmap
-  shell: postmap "{{postfix_relay_configs_merged[item]|quote}}"
+  shell: postmap "{{ postfix_relay_configs_merged[item]|quote }}"
   with_items:
     - sender_dependent_relayhost_maps
     - smtp_sasl_password_maps
   when: result_update_maps|changed
-  notify: "postfix reloaded ({{ansible_service_mgr}})"
+  notify: "postfix reloaded ({{ ansible_service_mgr }})"
