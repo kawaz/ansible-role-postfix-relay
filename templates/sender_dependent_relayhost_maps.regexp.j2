@@ -1,8 +1,8 @@
 {% if postfix_relay_sender_dependent_relayhost_maps|length %}
 # from postfix_relay_sender_dependent_relayhost_maps by {{ role_path|basename }}
 {% for k, v in postfix_relay_sender_dependent_relayhost_maps.iteritems() %}
-{% if not (k|regex_search('@\*\.')) %}
-{{ k }} {{ v }}
+{% if k|regex_search('@\*\.') %}
+/{{ k|regex_replace('@\*\.', '@')|regex_escape|regex_replace('@', '@([a-z0-9\.-]+\.)?') }}$/ {{ v }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -10,8 +10,10 @@
 # from postfix_relay_maps by {{ role_path|basename }}
 {% for item in postfix_relay_maps %}
 {% if item.sender and item.relayhost %}
-{% if not (item.sender|regex_search('@\*\.')) %}
-{{ item.sender }} {{ item.relayhost }}
+{% if item.sender|regex_search('@') %}
+{% if item.sender|regex_search('@\*\.') or item.sender_matches_subdomains %}
+/{{ item.sender|regex_replace('@\*\.', '@')|regex_escape|regex_replace('@', '@([a-z0-9\.-]+\.)?') }}$/ {{ item.relayhost }}
+{% endif %}
 {% endif %}
 {% endif %}
 {% endfor %}

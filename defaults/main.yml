@@ -29,4 +29,5 @@ postfix_relay_smtp_sasl_password_maps: {}
 #   - sender: '@example.jp'
 #   - relayhost: '[relay.example.jp]:587'
 #   - password: 'USERNAME:PASSWORD'
+#   - enable_password_conversion_for_ses: yes
 postfix_relay_maps: {}

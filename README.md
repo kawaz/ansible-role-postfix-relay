@@ -18,7 +18,8 @@ None
 |---|---|---|
 |`postfix_relay_configs`|Extra configs of main.cf|`{}`|
 |`postfix_relay_maps`|Maps of `{sender, relayhost, username, password, enable_password_conversion_for_ses}`|`[]`|
-|`postfix_relay_maps[].sender`|sender||
+|`postfix_relay_maps[].sender`|sender. If sender contains `@*.`, it matches subdomains.||
+|`postfix_relay_maps[].sender_matches_subdomains`|If this is `yes`, sender matches subdomains. This is the same as including `@*.` in sender.|`no`|
 |`postfix_relay_maps[].relayhost`|relayhost||
 |`postfix_relay_maps[].username`|sasl username||
 |`postfix_relay_maps[].password`|sasl password||
@@ -61,16 +62,19 @@ This is example for combined multiple identities of AmazonSES and gmail account.
         '@example.com': '[email-smtp.us-east-1.amazonaws.com]:587'
         '@example.org': '[email-smtp.us-east-1.amazonaws.com]:587'
         '@example.net': '[email-smtp.us-east-1.amazonaws.com]:587'
-        '@example.info': '[email-smtp.us-east-1.amazonaws.com]:587'
+        '@*.example.info': '[email-smtp.us-east-1.amazonaws.com]:587'
         'user@google.com': '[smtp-relay.gmail.com]:587'
         '@intra.local': '[10.0.0.25]:25'
       postfix_relay_smtp_sasl_password_maps:
         '@example.com': 'AWS_ACCESS_KEY1:AWS_ACCESS_SECRET1'
         '@example.org': 'AWS_ACCESS_KEY2:AWS_ACCESS_SECRET2'
-        '[email-smtp.us-east-1.amazonaws.com]:587': 'AWS_ACCESS_KEY3:AWS_ACCESS_SECRET3'
+        '@*.example.info': 'AWS_ACCESS_KEY3:AWS_ACCESS_SECRET3'
+        '[email-smtp.us-east-1.amazonaws.com]:587': 'AWS_ACCESS_KEY4:AWS_ACCESS_SECRET4'
         'user@google.com': 'user@google.com:PASSWORD'
       postfix_relay_maps:
         - sender: '@example.jp'
+          relayhost: '[smtp-relay.gmail.com]:587'
+        - sender: '@*.example.jp'
           relayhost: '[smtp-relay.gmail.com]:587'
         - sender: 'foo@example.jp'
           username: 'foo@example.jp'

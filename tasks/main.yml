@@ -11,9 +11,20 @@
   with_dict: "{{ postfix_relay_configs_merged }}"
   notify: "postfix restarted ({{ ansible_service_mgr }})"
 
-- name: update db of maps
+- name: update regexp table of maps
   template:
-    dest: "{{ postfix_relay_configs_merged[item]|replace('hash:','') }}"
+    dest: "/etc/postfix/{{ item }}"
+    src: "{{ item }}.j2"
+    group: postfix
+    mode: '0640'
+  with_items:
+    - sender_dependent_relayhost_maps.regexp
+    - smtp_sasl_password_maps.regexp
+  notify: "postfix reloaded ({{ ansible_service_mgr }})"
+
+- name: update hash table of maps
+  template:
+    dest: "/etc/postfix/{{ item }}"
     src: "{{ item }}.j2"
     group: postfix
     mode: '0640'
@@ -23,7 +34,7 @@
   register: result_update_maps
 
 - name: execute postmap
-  shell: postmap "{{ postfix_relay_configs_merged[item]|quote }}"
+  shell: postmap "/etc/postfix/{{ item }}"
   with_items:
     - sender_dependent_relayhost_maps
     - smtp_sasl_password_maps

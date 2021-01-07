@@ -1,8 +1,8 @@
 ---
 postfix_relay_configs_template:
-  sender_dependent_relayhost_maps: hash:/etc/postfix/sender_dependent_relayhost_maps
+  sender_dependent_relayhost_maps: hash:/etc/postfix/sender_dependent_relayhost_maps regexp:/etc/postfix/sender_dependent_relayhost_maps.regexp
   smtp_sasl_auth_enable: 'yes'
-  smtp_sasl_password_maps: hash:/etc/postfix/smtp_sasl_password_maps
+  smtp_sasl_password_maps: hash:/etc/postfix/smtp_sasl_password_maps regexp:/etc/postfix/smtp_sasl_password_maps.regexp
   smtp_sasl_security_options: noanonymous
   smtp_sender_dependent_authentication: 'yes'
   # if ansible_distribution is Debian or Ubuntu then /etc/ssl/certs/ca-certificates.crt
