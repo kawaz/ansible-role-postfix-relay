@@ -17,7 +17,7 @@ None
 |Variable|Description|Default|
 |---|---|---|
 |`postfix_relay_configs`|Extra configs of main.cf|`{}`|
-|`postfix_relay_maps`|Maps of `{sender, relayhost, username, password, enable_password_conversion_for_ses}`|`[]`|
+|`postfix_relay_maps`|List of map `{sender, sender_matches_subdomains, relayhost, username, password, enable_password_conversion_for_ses, password_conversion_mode}`|`[]`|
 |`postfix_relay_maps[].sender`|sender. If sender contains `@*.`, it matches subdomains.||
 |`postfix_relay_maps[].sender_matches_subdomains`|If this is `yes`, sender matches subdomains. This is the same as including `@*.` in sender.|`no`|
 |`postfix_relay_maps[].relayhost`|relayhost||
