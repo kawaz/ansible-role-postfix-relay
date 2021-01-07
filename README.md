@@ -43,6 +43,7 @@ This is simple playbook for AmazonSES.
     - role: kawaz.postfix-relay
       postfix_relay_maps:
         - sender: '@example.com'
+          sender_matches_subdomains: yes
           relayhost: '[email-smtp.us-east-1.amazonaws.com]:587'
           username: 'AKIAIOSFODNN7EXAMPLE'
           password: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'

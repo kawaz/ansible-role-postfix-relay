@@ -16,6 +16,7 @@ postfix_relay_smtp_sasl_password_maps: {}
 # # Examples
 # postfix_relay_sender_dependent_relayhost_maps:
 #   '@example.jp': '[relay.example.jp]:587'
+#   '@*.example.jp': '[relay.example.jp]:587'
 #   'foo@example.com': '[relay.example.jp]:587'
 # postfix_relay_smtp_sasl_password_maps:
 #   '[relay.example.jp]:587': 'USERNAME:PASSWORD'
@@ -27,6 +28,7 @@ postfix_relay_smtp_sasl_password_maps: {}
 # Examples
 # postfix_relay_maps:
 #   - sender: '@example.jp'
+#   - sender_matches_subdomains: yes
 #   - relayhost: '[relay.example.jp]:587'
 #   - password: 'USERNAME:PASSWORD'
 #   - enable_password_conversion_for_ses: yes
