@@ -34,7 +34,10 @@
   register: result_update_maps
 
 - name: execute postmap
-  shell: postmap "/etc/postfix/{{ item }}"
+  command:
+    argv:
+      - postmap
+      - "/etc/postfix/{{ item }}"
   with_items:
     - sender_dependent_relayhost_maps
     - smtp_sasl_password_maps
