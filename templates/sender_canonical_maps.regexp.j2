@@ -1,0 +1,4 @@
+# from postfix_relay_fixup_sender_domain by {{ role_path|basename }}
+/(.*@{{ postfix_relay_fixup_sender_domain|regex_escape }})$/ ${1}
+/(.+)@([^\.]+)$/                            ${1}+${2}@{{ postfix_relay_fixup_sender_domain }}
+/(.+)@(.+\.(local|localdomain|internal))$/  ${1}+${2}@{{ postfix_relay_fixup_sender_domain }}

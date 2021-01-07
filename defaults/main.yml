@@ -33,3 +33,15 @@ postfix_relay_smtp_sasl_password_maps: {}
 #   - password: 'USERNAME:PASSWORD'
 #   - enable_password_conversion_for_ses: yes
 postfix_relay_maps: {}
+
+# Fix the sender's domain while retaining the original hostname information.
+# This option helps you easily relay mail from your EC2 instance with the default hostname to SES.
+# If this is set, it will create sender_canonical_maps=regexp:/etc/postfix/sender_canonical_maps.regexp like this.
+#
+#   /^(.*@example\.com)$/                       ${1}
+#   /^(.+)@([^\.]+)$/                           ${1}+${2}@example.com
+#   /^(.+)@(.+\.(local|localdomain|internal))$/ ${1}+${2}@example.com
+#
+# Examples
+# postfix_relay_fixup_sender_domain: example.com
+postfix_relay_fixup_sender_domain: null

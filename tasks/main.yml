@@ -43,3 +43,24 @@
     - smtp_sasl_password_maps
   when: result_update_maps is changed
   notify: "postfix reloaded ({{ ansible_service_mgr }})"
+
+- name: create sender_canonical_maps table to /etc/postfix/sender_canonical_maps.regexp
+  template:
+    dest: "/etc/postfix/{{ item }}"
+    src: "{{ item }}.j2"
+    group: postfix
+    mode: '0640'
+  with_items:
+    - sender_canonical_maps.regexp
+  when: postfix_relay_fixup_sender_domain and postfix_relay_fixup_sender_domain | length > 0
+  notify: "postfix reloaded ({{ ansible_service_mgr }})"
+
+- name: create sender_canonical_maps setting to /etc/postfix/main.cf
+  lineinfile:
+    dest: /etc/postfix/main.cf
+    regexp: '^\s*{{ item.key }}\s*=.*'
+    line: "{{ item.key }}={{ item.value }}"
+  with_dict:
+    sender_canonical_maps: "regexp:/etc/postfix/sender_canonical_maps.regexp"
+  when: postfix_relay_fixup_sender_domain and postfix_relay_fixup_sender_domain | length > 0
+  notify: "postfix restarted ({{ ansible_service_mgr }})"
