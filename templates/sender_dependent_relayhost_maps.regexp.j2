@@ -9,7 +9,7 @@
 {% if postfix_relay_maps|length %}
 # from postfix_relay_maps by {{ role_path|basename }}
 {% for item in postfix_relay_maps %}
-{% if item.sender and item.relayhost %}
+{% if item.sender|default("") and item.relayhost|default("") %}
 {% if item.sender|regex_search('@') %}
 {% if item.sender|regex_search('@\*\.') or item.sender_matches_subdomains %}
 /{{ item.sender|regex_replace('@\*\.', '@')|regex_escape|regex_replace('@', '@([a-z0-9\.-]+\.)?') }}$/ {{ item.relayhost }}
