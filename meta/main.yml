@@ -1,7 +1,6 @@
 ---
 galaxy_info:
-  namespace: kawaz
-  role_name: postfix_relay
+  role_name: postfix-relay
   author: Yoshiaki Kawazu
   description: Add sender depended relay hosts to postfix with sasl authentication
   issue_tracker_url: https://github.com/kawaz/ansible-role-postfix-relay/issues
