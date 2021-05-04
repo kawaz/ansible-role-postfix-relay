@@ -33,7 +33,7 @@
     - smtp_sasl_password_maps
   register: result_update_maps
 
-- name: execute postmap # noqa no-handler
+- name: execute postmap  # noqa no-handler
   command:
     argv:
       - postmap
