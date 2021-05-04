@@ -2,7 +2,7 @@ Ansible role for postfix with sender depended relay and sasl authentication
 --
 
 [![Build Status](https://travis-ci.com/kawaz/ansible-role-postfix-relay.svg?branch=master)](https://travis-ci.com/kawaz/ansible-role-postfix-relay)
-[![Ansible galaxy](https://img.shields.io/badge/ansible--galaxy-kawaz.postfix--relay-blue.svg)](https://galaxy.ansible.com/kawaz/postfix-relay/)
+[![Ansible galaxy](https://img.shields.io/badge/ansible--galaxy-kawaz.postfix--relay-blue.svg)](https://galaxy.ansible.com/kawaz/postfix_relay/)
 
 # Requirements
 
@@ -40,7 +40,7 @@ This is simple playbook for AmazonSES.
 ```yaml
 - hosts: servers
   roles:
-    - role: kawaz.postfix-relay
+    - role: kawaz.postfix_relay
       postfix_relay_maps:
         - sender: '@example.com'
           sender_matches_subdomains: yes
@@ -58,7 +58,7 @@ This is example for combined multiple identities of AmazonSES and gmail account.
 ```yaml
 - hosts: servers
   roles:
-    - role: kawaz.postfix-relay
+    - role: kawaz.postfix_relay
       postfix_relay_sender_dependent_relayhost_maps:
         '@example.com': '[email-smtp.us-east-1.amazonaws.com]:587'
         '@example.org': '[email-smtp.us-east-1.amazonaws.com]:587'
