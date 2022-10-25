@@ -27,6 +27,7 @@ None
 |`postfix_relay_maps[].password_conversion_mode`|Pasword conversion mode used when enable_password_conversion_for_ses is yes. If IAM AccessKey created until 2019-01-10, then use `aws_ses_before20190110` else use `aws_ses_v4`. [see here](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html)|`aws_ses_v4`|
 |`postfix_relay_sender_dependent_relayhost_maps`|Maps of relayhost for each sender|`{}`|
 |`postfix_relay_smtp_sasl_password_maps`|Maps of `USERNAME:PASSWORD` for each relayhost or sender|`{}`|
+|`postfix_relay_fixup_sender_domain`|Rewrites the sender to the domain specified here if it does not match any sender|`null`|
 
 # Dependencies
 
@@ -41,6 +42,7 @@ This is simple playbook for AmazonSES.
 - hosts: servers
   roles:
     - role: kawaz.postfix_relay
+      postfix_relay_fixup_sender_domain: noreply.example.com
       postfix_relay_maps:
         - sender: '@example.com'
           sender_matches_subdomains: yes
@@ -51,6 +53,9 @@ This is simple playbook for AmazonSES.
 ```
 
 If your credentials is created by management console, you don't need `enable_password_conversion_for_ses: yes`.
+
+If sender is `ec2-user@ip-10-0-123-45.internal`, the sender is rewritten to `ec2-user+ip-10-0-123-45.internal@noreply.example.com`.
+If `postfix_relay_fixup_sender_domain` is `null`, then the sender is not rewritten and will not be relayed to the relayhost for `@example.com`.
 
 ## Multiple identities
 This is example for combined multiple identities of AmazonSES and gmail account.
